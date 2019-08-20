@@ -1,0 +1,71 @@
+#include<stdio.h>
+
+
+int main()
+{
+	int n,i,bt[20],min=0,p[20],temp=0,temp1=0,wt[20],tt[20],wait;
+	float wt_avg=0,tt_avg=0;
+	printf("Enter no of processes: ");
+	scanf("%d",&n);
+	printf("Enter burst time \n");
+
+	for(i=0;i<n;i++)
+	{
+		printf("Enter process %d: ",i+1);
+		scanf("%d",&bt[i]);
+		p[i] = i+1;
+	}
+	
+   	for (int i = 0; i < n-1; i++) 
+   	{     
+    	for (int j = 0; j < n-i-1; j++) 
+    	{
+    		if (bt[j] > bt[j+1]) {
+    			temp = bt[j];
+    			bt[j] = bt[j+1];
+    			bt[j+1] = temp;
+    			temp1 = p[j];
+    			p[j] = p[j+1];
+    			p[j+1] = temp1;
+
+
+    		}
+    	}
+    }
+
+    wt[0] = 0;
+    for(i=0;i<n-1;i++)
+    {
+    	wait = wt[i];
+    	wt[i+1] = wait + bt[i];
+    }
+
+    tt[0] = bt[0];
+    for(i=0;i<n-1;i++)
+    {
+    	tt[i+1] = wt[i+1] + bt[i+1];
+    }
+    printf("process\tbt\twt\ttt\n");
+    for(i=0;i<n;i++)
+    {
+    	printf("p%d\t%d\t%d\t%d\n",p[i],bt[i],wt[i],tt[i]);
+    }
+
+    for(i=0;i<n;i++)
+    {
+    	wt_avg += wt[i];
+    	tt_avg += tt[i];
+    }
+
+    printf("Average waiting time:%f\n",wt_avg/n);
+    printf("Average waiting time:%f",tt_avg/n);
+
+    
+    
+} 
+
+	
+
+
+	
+
